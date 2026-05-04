@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "AuraMatch"
+version = "1.0.0"
+id = "artifacts/auramatch"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25660
+
+[services.development]
+run = "pnpm --filter @workspace/auramatch run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/auramatch", "run", "build" ]
+publicDir = "artifacts/auramatch/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25660"
+BASE_PATH = "/"
